@@ -17,15 +17,15 @@ public class Board extends BaseTimeEntity {
     private Long id;
 
     @NotNull
-    @Column(length = 32)
+    @Column(nullable = false, length = 32)
     private String name;
 
     @NotNull
-    @Column(length = 4)
+    @Column(nullable = false, length = 4)
     private String password;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private LocalDateTime showDate;
 
     protected Board() {

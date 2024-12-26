@@ -20,14 +20,15 @@ public class Paper extends BaseTimeEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false)
     private Board board;
 
     @NotNull
-    @Column(length = 32)
+    @Column(nullable = false, length = 32)
     private String name;
 
     @NotNull
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     protected Paper() {
