@@ -25,7 +25,7 @@ public class BoardController {
             @RequestBody BoardSaveRequest request
     ) {
         Long boardId = boardService.saveBoard(request);
-        return ResponseEntity.created(URI.create("/board/" + boardId.toString())).build();
+        return ResponseEntity.created(URI.create("/board/" + boardId)).build();
     }
 
     @GetMapping("/board/{board-id}")
