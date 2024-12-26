@@ -1,0 +1,35 @@
+name: 🛠️ Refactoring
+description: 리팩터링 작업을 진행합니다.
+title: '[REFACTOR] '
+labels: ['🛠️ Refactor']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 📌 리팩터링할 부분
+      description: 어떤 부분을 리팩터링할지 간단하게 설명해주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: as-is
+    attributes:
+      label: 🥲 as-is
+    validations:
+      required: false
+  - type: textarea
+    id: to-be
+    attributes:
+      label: 😍 to-be
+    validations:
+      required: false
+  - type: input
+    id: duration
+    attributes:
+      label: ⏰ 예상 소요 기간
+  - type: textarea
+    id: reference
+    attributes:
+      label: 🔗 참고 자료
+      description: 참고할만한 자료가 있으면 첨부해주세요.
+    validations:
+      required: false
