@@ -32,17 +32,13 @@ public class PaperService {
 
     public PaperDetailResponse getPaperDetail(Long paperId) {
         Paper paper = paperRepository.findById(paperId).orElseThrow();
-        return new PaperDetailResponse(paper.getId(), paper.getCreatedAt(), paper.getName(), paper.getContent());
+        return PaperDetailResponse.from(paper);
     }
 
     public PaperDetailResponses getPaperDetails(Long boardId) {
         List<Paper> papers = paperRepository.findAllByBoardId(boardId);
         List<PaperDetailResponse> responses = papers.stream()
-                .map(paper -> new PaperDetailResponse(
-                        paper.getId(),
-                        paper.getCreatedAt(),
-                        paper.getName(),
-                        paper.getContent()))
+                .map(PaperDetailResponse::from)
                 .collect(Collectors.toList());
         return new PaperDetailResponses(responses);
     }

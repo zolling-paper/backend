@@ -24,6 +24,6 @@ public class BoardService {
 
     public BoardDetailResponse getBoardDetail(Long boardId) {
         Board board = boardRepository.findById(boardId).orElseThrow();
-        return new BoardDetailResponse(board.getId(), board.getName(), board.getShowDate());
+        return BoardDetailResponse.from(board);
     }
 }
