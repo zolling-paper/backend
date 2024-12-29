@@ -1,10 +1,13 @@
 package com.zollingpaper.backend.board.exception;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 import com.zollingpaper.backend.global.exception.ErrorMessage;
 import com.zollingpaper.backend.global.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 
 public enum BoardErrorCode implements ErrorResponse {
+    NOT_FOUND(BAD_REQUEST, "해당 보드가 존재하지 않습니다."),
     ;
 
     private final HttpStatus httpStatus;
