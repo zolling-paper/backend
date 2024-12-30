@@ -2,11 +2,8 @@ package com.zollingpaper.backend.paper.domain;
 
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
-import java.time.LocalDateTime;
 
 public class PaperFixture {
-
-    public static final LocalDateTime TOMORROW = LocalDateTime.now().plusDays(1);
 
     public static final PaperSaveRequest PAPER_SAVE_REQUEST_1
             = new PaperSaveRequest(

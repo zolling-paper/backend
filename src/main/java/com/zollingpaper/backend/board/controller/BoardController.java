@@ -5,7 +5,6 @@ import com.zollingpaper.backend.board.dto.BoardSaveRequest;
 import com.zollingpaper.backend.board.dto.BoardSaveResponse;
 import com.zollingpaper.backend.board.service.BoardService;
 import java.net.URI;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
