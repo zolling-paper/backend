@@ -1,0 +1,36 @@
+name: 💬 Back Log
+description: 함께 논의하고 싶으신가요?
+title: '[BACK LOG] '
+labels: ['💬 Back Log']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 📌 논의가 필요한 부분
+      description: 논의가 필요한 부분에 대해서 간단하게 설명해주세요.
+    validations:
+      required: true
+  - type: dropdown
+    id: regarding
+    attributes:
+      label: ❓ 어떤 것과 관련해 논의하고 싶은가요?
+      multiple: true
+      options:
+        - 기능 구현
+        - 리팩터링
+        - 버그 수정
+        - 컨벤션
+        - 배포
+        - 기타
+  - type: input
+    id: duration
+    attributes:
+      label: ⏰ 논의 기간
+      description: 언제까지 논의가 완료되어야하는지 알려주세요.
+  - type: textarea
+    id: reference
+    attributes:
+      label: 🔗 참고 자료
+      description: 참고할만한 자료가 있으면 첨부해주세요.
+    validations:
+      required: false

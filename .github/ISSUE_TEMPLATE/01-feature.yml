@@ -1,0 +1,25 @@
+name: ✨ New Feature
+description: 새로운 기능을 추가합니다.
+title: '[FEAT] '
+labels: ['✨ Feature']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 🏷️ 설명
+      description: 추가하려는 기능에 대해 간단하게 설명해주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: to-do
+    attributes:
+      label: ✅ 할 일
+      description: 예상되는 작업을 상세하게 설명해주세요.
+      placeholder: Tell us what you will do!
+      value: '할 일을 체크박스 형태로 작성해주세요.'
+    validations:
+      required: true
+  - type: input
+    id: duration
+    attributes:
+      label: ⏰ 예상 소요 기간

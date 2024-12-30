@@ -1,0 +1,30 @@
+name: 🚨 Hot Fix
+description: 긴급한 문제를 수정합니다.
+title: '[HOT FIX] '
+labels: ['🚨 Hot Fix']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 🚨 문제 설명
+      description: 어떤 문제가 발생했는지 설명해주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: 🎉 예상 결과
+      description: 문제 수정 후 예상되는 정상적인 결과에 대해서 설명해주세요.
+    validations:
+      required: true
+  - type: input
+    id: duration
+    attributes:
+      label: ⏰ 예상 소요 기간
+  - type: textarea
+    id: reference
+    attributes:
+      label: 🔗 참고 자료
+      description: 참고할만한 자료가 있으면 첨부해주세요.
+    validations:
+      required: false
