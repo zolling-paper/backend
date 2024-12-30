@@ -3,6 +3,7 @@ package com.zollingpaper.backend.paper.controller;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
+import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.service.PaperService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,12 @@ public class PaperController {
     }
 
     @PostMapping("/paper")
-    public ResponseEntity<Void> savePaper (
+    public ResponseEntity<PaperSaveResponse> savePaper (
             @RequestBody PaperSaveRequest request
     ) {
-        Long paperId = paperService.savePaper(request);
-        return ResponseEntity.created(URI.create("/paper/" + paperId)).build();
+        PaperSaveResponse response = paperService.savePaper(request);
+        return ResponseEntity.created(URI.create("/paper/" + response.id()))
+                .body(response);
     }
 
     @GetMapping("/paper/{paper-id}")

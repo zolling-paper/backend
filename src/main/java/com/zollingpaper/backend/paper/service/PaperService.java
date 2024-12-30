@@ -7,6 +7,7 @@ import com.zollingpaper.backend.paper.domain.Paper;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
+import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.exception.PaperErrorCode;
 import com.zollingpaper.backend.paper.repository.PaperRepository;
 import java.util.List;
@@ -24,12 +25,12 @@ public class PaperService {
         this.paperRepository = paperRepository;
     }
 
-    public Long savePaper(PaperSaveRequest request) {
+    public PaperSaveResponse savePaper(PaperSaveRequest request) {
         Board board = boardRepository.findById(request.boardId()).orElseThrow();
         Paper paper = new Paper(board, request.name(), request.content());
         Paper savedPaper = paperRepository.save(paper);
 
-        return savedPaper.getId();
+        return PaperSaveResponse.from(savedPaper);
     }
 
     public PaperDetailResponse getPaperDetail(Long paperId) {
