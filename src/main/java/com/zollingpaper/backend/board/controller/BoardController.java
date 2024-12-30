@@ -2,8 +2,10 @@ package com.zollingpaper.backend.board.controller;
 
 import com.zollingpaper.backend.board.dto.BoardDetailResponse;
 import com.zollingpaper.backend.board.dto.BoardSaveRequest;
+import com.zollingpaper.backend.board.dto.BoardSaveResponse;
 import com.zollingpaper.backend.board.service.BoardService;
 import java.net.URI;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +23,12 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public ResponseEntity<Void> saveBoard(
+    public ResponseEntity<BoardSaveResponse> saveBoard(
             @RequestBody BoardSaveRequest request
     ) {
-        Long boardId = boardService.saveBoard(request);
-        return ResponseEntity.created(URI.create("/board/" + boardId)).build();
+        BoardSaveResponse response = boardService.saveBoard(request);
+        return ResponseEntity.created(URI.create("/board/" + response.id()))
+                .body(response);
     }
 
     @GetMapping("/board/{board-id}")
