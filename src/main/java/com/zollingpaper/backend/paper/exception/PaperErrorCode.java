@@ -1,13 +1,11 @@
 package com.zollingpaper.backend.paper.exception;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-
 import com.zollingpaper.backend.global.exception.ErrorMessage;
 import com.zollingpaper.backend.global.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 
 public enum PaperErrorCode implements ErrorResponse {
-    NOT_FOUND(BAD_REQUEST, "해당 편지가 존재하지 않습니다."),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "해당 편지가 존재하지 않습니다."),
     ;
 
     private final HttpStatus httpStatus;

@@ -63,6 +63,6 @@ class BoardControllerE2ETest {
         RestAssured.given().log().all()
                 .when().get("/board/2")
                 .then().log().all()
-                .statusCode(400).body("message", is(BoardErrorCode.NOT_FOUND.getErrorMessage().message()));
+                .statusCode(404).body("message", is(BoardErrorCode.NOT_FOUND.getErrorMessage().message()));
     }
 }

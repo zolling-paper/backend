@@ -75,7 +75,7 @@ public class PaperControllerE2ETest {
         RestAssured.given().log().all()
                 .when().get("/paper/2")
                 .then().log().all()
-                .statusCode(400).body("message", is(PaperErrorCode.NOT_FOUND.getErrorMessage().message()));
+                .statusCode(404).body("message", is(PaperErrorCode.NOT_FOUND.getErrorMessage().message()));
     }
 
     @DisplayName("Board Id에 해당하는 모든 편지를 조회할 수 있다.")
