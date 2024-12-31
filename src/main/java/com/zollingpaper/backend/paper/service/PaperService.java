@@ -2,7 +2,7 @@ package com.zollingpaper.backend.paper.service;
 
 import com.zollingpaper.backend.board.domain.Board;
 import com.zollingpaper.backend.board.repository.BoardRepository;
-import com.zollingpaper.backend.global.exception.PaperException;
+import com.zollingpaper.backend.paper.exception.PaperException;
 import com.zollingpaper.backend.paper.domain.Paper;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponses;

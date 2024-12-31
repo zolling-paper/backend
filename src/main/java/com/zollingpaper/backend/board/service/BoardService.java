@@ -6,7 +6,7 @@ import com.zollingpaper.backend.board.dto.BoardSaveRequest;
 import com.zollingpaper.backend.board.dto.BoardSaveResponse;
 import com.zollingpaper.backend.board.exception.BoardErrorCode;
 import com.zollingpaper.backend.board.repository.BoardRepository;
-import com.zollingpaper.backend.global.exception.BoardException;
+import com.zollingpaper.backend.board.exception.BoardException;
 import org.springframework.stereotype.Service;
 
 @Service

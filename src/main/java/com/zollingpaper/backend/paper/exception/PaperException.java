@@ -1,4 +1,6 @@
-package com.zollingpaper.backend.global.exception;
+package com.zollingpaper.backend.paper.exception;
+
+import com.zollingpaper.backend.global.exception.ErrorResponse;
 
 public class PaperException extends RuntimeException {
 

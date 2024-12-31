@@ -1,5 +1,7 @@
 package com.zollingpaper.backend.global.exception;
 
+import com.zollingpaper.backend.board.exception.BoardException;
+import com.zollingpaper.backend.paper.exception.PaperException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
