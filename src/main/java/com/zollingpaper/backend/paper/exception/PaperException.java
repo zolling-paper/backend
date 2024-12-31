@@ -1,16 +1,10 @@
 package com.zollingpaper.backend.paper.exception;
 
 import com.zollingpaper.backend.global.exception.ErrorResponse;
+import com.zollingpaper.backend.global.exception.GlobalCustomException;
 
-public class PaperException extends RuntimeException {
-
-    private final ErrorResponse errorResponse;
-
+public class PaperException extends GlobalCustomException {
     public PaperException(ErrorResponse errorResponse) {
-        this.errorResponse = errorResponse;
-    }
-
-    public ErrorResponse getErrorResponse() {
-        return errorResponse;
+        super(errorResponse);
     }
 }
