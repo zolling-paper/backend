@@ -19,7 +19,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 class BoardControllerE2ETest {
 
     @LocalServerPort
-    int serverPort;
+    private int serverPort;
 
     @Autowired
     private DatabaseCleaner databaseCleaner;

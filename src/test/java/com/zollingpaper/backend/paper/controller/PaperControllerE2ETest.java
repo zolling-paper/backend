@@ -24,7 +24,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 public class PaperControllerE2ETest {
 
     @LocalServerPort
-    int serverPort;
+    private int serverPort;
 
     @Autowired
     private DatabaseCleaner databaseCleaner;
