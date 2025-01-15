@@ -31,4 +31,9 @@ public class BoardService {
 
         return BoardDetailResponse.from(board);
     }
+
+    public Board getBoard(Long boardId) {
+        return boardRepository.findById(boardId)
+                .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+    }
 }
