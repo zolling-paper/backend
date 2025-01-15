@@ -1,16 +1,18 @@
 package com.zollingpaper.backend.paper.controller;
 
+import java.net.URI;
+import com.zollingpaper.backend.paper.dto.PaperDetailPaginationResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.service.PaperService;
-import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,7 +25,7 @@ public class PaperController {
     }
 
     @PostMapping("/paper")
-    public ResponseEntity<PaperSaveResponse> savePaper (
+    public ResponseEntity<PaperSaveResponse> savePaper(
             @RequestBody PaperSaveRequest request
     ) {
         PaperSaveResponse response = paperService.savePaper(request);
@@ -45,5 +47,15 @@ public class PaperController {
     ) {
         PaperDetailResponses responses = paperService.getPaperDetails(boardId);
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/board/{board-id}/papers/paging")
+    public ResponseEntity<PaperDetailPaginationResponse> getPaginatedPaperDetails(
+            @PathVariable(value = "board-id") Long boardId,
+            @RequestParam(value = "cursor", required = false) Long cursor,
+            @RequestParam(value = "limit", defaultValue = "10") int limit
+    ) {
+        PaperDetailPaginationResponse response = paperService.getPaperDetailPagination(boardId, cursor, limit);
+        return ResponseEntity.ok(response);
     }
 }
