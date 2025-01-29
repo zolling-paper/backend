@@ -39,11 +39,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${{ GITHUB_SHA::7 }}
+          tags: ${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${{ github.sha }}
           platforms: linux/x86
 
   Deploy:
     needs: Build
+    name: 🚀 Deployment
     runs-on: [ self-hosted ]
 
     steps:
@@ -53,5 +54,5 @@ jobs:
           docker stop ${{ secrets.DOCKER_CONTAINER_NAME }} | true
           docker rm ${{ secrets.DOCKER_CONTAINER_NAME }} | true
           docker image prune -a -f
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${ GITHUB_SHA::7 }
-          docker run --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 80:8080 -v /logs:/logs ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${ GITHUB_SHA::7 }
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${ github.sha }
+          docker run --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 80:8080 -v /logs:/logs ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${ github.sha }
