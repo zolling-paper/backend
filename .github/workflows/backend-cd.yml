@@ -40,7 +40,7 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKER_IMAGE_NAME_DEV }}:${{ github.sha }}
-          platforms: linux/x86
+          platforms: linux/amd64
 
   Deploy:
     needs: Build
