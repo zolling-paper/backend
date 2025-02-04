@@ -29,6 +29,12 @@ jobs:
       - name: 🏗️ Build with Gradle
         run: ./gradlew clean bootJar
 
+      - name: List current directory
+        run: ls -al
+
+      - name: List build directory
+        run: ls -al build
+
       - name: 🐳 Login to Docker Hub
         uses: docker/login-action@v3
         with:
