@@ -52,7 +52,7 @@ jobs:
   Deploy:
     needs: Build
     name: 🚀 Deployment
-    runs-on: [ self-hosted ]
+    runs-on: [ self-hosted, dev ]
 
     steps:
       - name: 🚀 Deployment
