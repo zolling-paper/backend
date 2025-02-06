@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 amazoncorretto:17
+FROM openjdk:17
 
 ENV TZ=Asia/Seoul
 
