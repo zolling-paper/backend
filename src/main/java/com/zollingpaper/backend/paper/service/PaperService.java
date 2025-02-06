@@ -66,7 +66,7 @@ public class PaperService {
                 .map(PaperDetailResponse::from)
                 .toList();
 
-        return new PaperDetailPaginationResponse(responses, hasNext, getNextCursor(hasNext, papers));
+        return new PaperDetailPaginationResponse(responses, hasNext, cursor, getNextCursor(hasNext, papers));
     }
 
     private List<Paper> findPaginatedPapers(Long boardId, Long cursor, Pageable pageable) {
