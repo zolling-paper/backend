@@ -29,7 +29,6 @@ public class PaperFixture {
     public static final PaperSaveResponse PAPER_SAVE_RESPONSE_1
             = new PaperSaveResponse(
             1L,
-            1L,
             "Mason_",
             "hello"
     );
@@ -37,7 +36,6 @@ public class PaperFixture {
     public static final PaperSaveResponse PAPER_SAVE_RESPONSE_2
             = new PaperSaveResponse(
             2L,
-            1L,
             "Liv_",
             "hello World"
     );

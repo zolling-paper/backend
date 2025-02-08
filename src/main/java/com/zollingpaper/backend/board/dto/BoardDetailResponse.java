@@ -1,11 +1,11 @@
 package com.zollingpaper.backend.board.dto;
 
-import com.zollingpaper.backend.board.domain.Board;
 import java.time.LocalDateTime;
+import com.zollingpaper.backend.board.domain.Board;
 
-public record BoardDetailResponse(Long id, String name, LocalDateTime showDate) {
+public record BoardDetailResponse(String id, String name, LocalDateTime showDate) {
 
     public static BoardDetailResponse from(Board board) {
-        return new BoardDetailResponse(board.getId(), board.getName(), board.getShowDate());
+        return new BoardDetailResponse(board.getAccessAddress(), board.getName(), board.getShowDate());
     }
 }
