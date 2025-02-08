@@ -2,14 +2,16 @@ package com.zollingpaper.backend.paper.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.mockito.BDDMockito.given;
 
+import java.util.stream.Stream;
 import com.zollingpaper.backend.board.domain.BoardFixture;
+import com.zollingpaper.backend.board.service.AccessAddressGenerator;
 import com.zollingpaper.backend.global.DatabaseCleaner;
 import com.zollingpaper.backend.paper.domain.PaperFixture;
 import com.zollingpaper.backend.paper.exception.PaperErrorCode;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -29,17 +32,24 @@ public class PaperControllerE2ETest {
     @Autowired
     private DatabaseCleaner databaseCleaner;
 
+    @MockBean
+    private AccessAddressGenerator accessAddressGenerator;
+
+    private final String accessAddress = "test-address";
+
     @BeforeEach
     void beforeEach() {
         RestAssured.port = serverPort;
         databaseCleaner.execute();
+
+        given(accessAddressGenerator.generate()).willReturn(accessAddress);
 
         RestAssured.given().log().all()
                 .when().body(BoardFixture.BOARD_SAVE_REQUEST_1)
                 .contentType(ContentType.JSON).post("/board")
                 .then().log().all()
                 .statusCode(201)
-                .header("Location", "/board/" + BoardFixture.BOARD_SAVE_RESPONSE_1.id());
+                .header("Location", "/board/" + accessAddress);
 
         RestAssured.given().log().all()
                 .when().body(PaperFixture.PAPER_SAVE_REQUEST_1)

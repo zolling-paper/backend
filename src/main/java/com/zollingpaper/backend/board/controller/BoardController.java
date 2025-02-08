@@ -1,10 +1,10 @@
 package com.zollingpaper.backend.board.controller;
 
+import java.net.URI;
 import com.zollingpaper.backend.board.dto.BoardDetailResponse;
 import com.zollingpaper.backend.board.dto.BoardSaveRequest;
 import com.zollingpaper.backend.board.dto.BoardSaveResponse;
 import com.zollingpaper.backend.board.service.BoardService;
-import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,9 +32,9 @@ public class BoardController {
 
     @GetMapping("/board/{board-id}")
     public ResponseEntity<BoardDetailResponse> getBoardDetail(
-            @PathVariable(value = "board-id") Long boardId
+            @PathVariable(value = "board-id") String accessAddress
     ) {
-        BoardDetailResponse response = boardService.getBoardDetail(boardId);
+        BoardDetailResponse response = boardService.getBoardDetail(accessAddress);
         return ResponseEntity.ok(response);
     }
 }

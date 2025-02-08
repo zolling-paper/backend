@@ -1,8 +1,8 @@
 package com.zollingpaper.backend.board.domain;
 
+import java.time.LocalDateTime;
 import com.zollingpaper.backend.board.dto.BoardSaveRequest;
 import com.zollingpaper.backend.board.dto.BoardSaveResponse;
-import java.time.LocalDateTime;
 
 public class BoardFixture {
 
@@ -24,14 +24,14 @@ public class BoardFixture {
 
     public static final BoardSaveResponse BOARD_SAVE_RESPONSE_1
             = new BoardSaveResponse(
-            1L,
+            "test-address",
             "Mason",
             TOMORROW
     );
 
     public static final BoardSaveResponse BOARD_SAVE_RESPONSE_2
             = new BoardSaveResponse(
-            2L,
+            "test-address",
             "Liv",
             TOMORROW
     );
