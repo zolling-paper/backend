@@ -32,7 +32,7 @@ public class BoardService {
         Board board = boardRepository.findByAccessAddress(accessAddress)
                 .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
 
-        return BoardDetailResponse.from(board);
+        return BoardDetailResponse.from(board, board.isPublic(), board.calculateRemainingDays());
     }
 
     public Board getBoard(Long boardId) {

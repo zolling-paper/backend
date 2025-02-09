@@ -1,6 +1,7 @@
 package com.zollingpaper.backend.board.domain;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import com.zollingpaper.backend.global.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,6 +46,21 @@ public class Board extends BaseTimeEntity {
 
     public Board(String accessAddress, String name, String password, LocalDateTime showDate) {
         this(null, accessAddress, name, password, showDate);
+    }
+
+    public boolean isPublic() {
+        return showDate.isEqual(LocalDateTime.now()) || showDate.isBefore(LocalDateTime.now());
+    }
+
+    public int calculateRemainingDays() {
+        if (showDate.isBefore(LocalDateTime.now())) {
+            return 0;
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        long remainingDays = ChronoUnit.DAYS.between(now.toLocalDate(), showDate.toLocalDate());
+
+        return (int) remainingDays;
     }
 
     public Long getId() {
