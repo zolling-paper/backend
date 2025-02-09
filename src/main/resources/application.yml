@@ -1,3 +1,8 @@
+swagger:
+  hosts:
+    - http://localhost:8080
+    - https://api.zolling.me
+
 spring:
   h2:
     console:
