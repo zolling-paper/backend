@@ -7,6 +7,8 @@ import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.service.PaperService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "paper API")
 @RestController
 public class PaperController {
 
@@ -24,6 +27,7 @@ public class PaperController {
         this.paperService = paperService;
     }
 
+    @Operation(summary = "paper 생성 API", description = "특정 board에 새로운 paper를 생성합니다.")
     @PostMapping("/paper")
     public ResponseEntity<PaperSaveResponse> savePaper(
             @RequestBody PaperSaveRequest request
@@ -33,6 +37,7 @@ public class PaperController {
                 .body(response);
     }
 
+    @Operation(summary = "paper 조회 API", description = "특정 paper 하나를 조회합니다.")
     @GetMapping("/paper/{paper-id}")
     public ResponseEntity<PaperDetailResponse> getPaperDetail(
             @PathVariable(value = "paper-id") Long paperId
@@ -41,6 +46,7 @@ public class PaperController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "paper 목록 조회 API", description = "특정 board의 paper 목록을 조회합니다.")
     @GetMapping("/board/{board-id}/papers")
     public ResponseEntity<PaperDetailResponses> getPaperDetails(
             @PathVariable(value = "board-id") Long boardId
@@ -49,6 +55,7 @@ public class PaperController {
         return ResponseEntity.ok(responses);
     }
 
+    @Operation(summary = "paper 목록 조회 페이지네이션 API", description = "특정 board의 paper 목록을 페이지네이션하여 조회합니다.")
     @GetMapping("/board/{board-id}/papers/paging")
     public ResponseEntity<PaperDetailPaginationResponse> getPaginatedPaperDetails(
             @PathVariable(value = "board-id") Long boardId,
