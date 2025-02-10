@@ -1,4 +1,4 @@
-package com.zollingpaper.backend.auth.service;
+package com.zollingpaper.backend.auth.util;
 
 import com.zollingpaper.backend.board.domain.Board;
 import io.jsonwebtoken.Jwts;

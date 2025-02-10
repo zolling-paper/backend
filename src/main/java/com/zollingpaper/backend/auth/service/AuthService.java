@@ -4,6 +4,7 @@ import com.zollingpaper.backend.auth.dto.LoginRequest;
 import com.zollingpaper.backend.auth.dto.LoginResponse;
 import com.zollingpaper.backend.auth.exception.AuthErrorCode;
 import com.zollingpaper.backend.auth.exception.AuthException;
+import com.zollingpaper.backend.auth.util.JwtTokenProvider;
 import com.zollingpaper.backend.board.domain.Board;
 import com.zollingpaper.backend.board.exception.BoardErrorCode;
 import com.zollingpaper.backend.board.exception.BoardException;
