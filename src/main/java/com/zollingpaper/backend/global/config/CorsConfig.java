@@ -13,7 +13,8 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://www.zolling.me", "https://zolling.me", "https://api.zolling.me", "http://localhost:5173")
+                .allowedOrigins("https://dev.zolling.me", "https://www.zolling.me", "https://zolling.me",
+                        "https://api.zolling.me", "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true);
     }
