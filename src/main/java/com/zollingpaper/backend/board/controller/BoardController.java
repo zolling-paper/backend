@@ -1,8 +1,5 @@
 package com.zollingpaper.backend.board.controller;
 
-import com.zollingpaper.backend.auth.util.JwtTokenProvider;
-import com.zollingpaper.backend.auth.util.JwtTokenValidator;
-import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import com.zollingpaper.backend.board.dto.BoardDetailResponse;
 import com.zollingpaper.backend.board.dto.BoardSaveRequest;
@@ -22,11 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
 
     private final BoardService boardService;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    public BoardController(BoardService boardService, JwtTokenProvider jwtTokenProvider) {
+    public BoardController(BoardService boardService) {
         this.boardService = boardService;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Operation(summary = "board 생성 API", description = "새로운 board를 생성합니다.")
@@ -42,10 +37,8 @@ public class BoardController {
     @Operation(summary = "board 조회 API", description = "개별 board를 조회합니다.")
     @GetMapping("/board/{board-id}")
     public ResponseEntity<BoardDetailResponse> getBoardDetail(
-            @PathVariable(value = "board-id") String accessAddress,
-            HttpServletRequest request
+            @PathVariable(value = "board-id") String accessAddress
     ) {
-        JwtTokenValidator.checkToken(request, jwtTokenProvider);
         BoardDetailResponse response = boardService.getBoardDetail(accessAddress);
         return ResponseEntity.ok(response);
     }

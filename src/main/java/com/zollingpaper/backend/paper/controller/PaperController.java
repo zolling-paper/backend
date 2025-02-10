@@ -1,5 +1,8 @@
 package com.zollingpaper.backend.paper.controller;
 
+import com.zollingpaper.backend.auth.util.JwtTokenProvider;
+import com.zollingpaper.backend.auth.util.JwtTokenValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperPaginationResponses;
@@ -22,9 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaperController {
 
     private final PaperService paperService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public PaperController(PaperService paperService) {
+    public PaperController(PaperService paperService, JwtTokenProvider jwtTokenProvider) {
         this.paperService = paperService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Operation(summary = "paper 생성 API", description = "특정 board에 새로운 paper를 생성합니다.")
@@ -40,8 +45,10 @@ public class PaperController {
     @Operation(summary = "paper 조회 API", description = "특정 paper 하나를 조회합니다.")
     @GetMapping("/paper/{paper-id}")
     public ResponseEntity<PaperDetailResponse> getPaperDetail(
-            @PathVariable(value = "paper-id") Long paperId
+            @PathVariable(value = "paper-id") Long paperId,
+            HttpServletRequest request
     ) {
+        JwtTokenValidator.checkToken(request, jwtTokenProvider);
         PaperDetailResponse response = paperService.getPaperDetail(paperId);
         return ResponseEntity.ok(response);
     }
