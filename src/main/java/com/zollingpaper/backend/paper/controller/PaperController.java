@@ -55,7 +55,7 @@ public class PaperController {
         return ResponseEntity.ok(responses);
     }
 
-    @Operation(summary = "paper 목록 조회 페이지네이션 APi", description = "특정 board의 paper 목록을 페이지네이션하여 조회합니다.")
+    @Operation(summary = "paper 목록 조회 페이지네이션 API", description = "특정 board의 paper 목록을 페이지네이션하여 조회합니다.")
     @GetMapping("/board/{board-id}/papers/paging")
     public ResponseEntity<PaperDetailPaginationResponse> getPaginatedPaperDetails(
             @PathVariable(value = "board-id") Long boardId,
