@@ -1,5 +1,6 @@
 package com.zollingpaper.backend.board.domain;
 
+import jakarta.persistence.Embedded;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import com.zollingpaper.backend.global.domain.BaseTimeEntity;
@@ -26,8 +27,8 @@ public class Board extends BaseTimeEntity {
     private String name;
 
     @NotNull
-    @Column(nullable = false, length = 4)
-    private String password;
+    @Embedded
+    private Password password;
 
     @NotNull
     @Column(nullable = false)
@@ -40,7 +41,7 @@ public class Board extends BaseTimeEntity {
         this.id = id;
         this.accessAddress = accessAddress;
         this.name = name;
-        this.password = password;
+        this.password = new Password(password);
         this.showDate = showDate;
     }
 
@@ -76,7 +77,7 @@ public class Board extends BaseTimeEntity {
     }
 
     public String getPassword() {
-        return password;
+        return password.getValue();
     }
 
     public LocalDateTime getShowDate() {
