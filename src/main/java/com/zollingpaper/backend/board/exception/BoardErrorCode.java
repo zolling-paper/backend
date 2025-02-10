@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public enum BoardErrorCode implements ErrorResponse {
     NOT_FOUND(HttpStatus.NOT_FOUND, "해당 보드가 존재하지 않습니다."),
+    INVALID_PASSWORD_FORMAT(HttpStatus.BAD_REQUEST, "유효하지 않은 비밀번호입니다.")
     ;
 
     private final HttpStatus httpStatus;
