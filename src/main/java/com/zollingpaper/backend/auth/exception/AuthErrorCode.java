@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public enum AuthErrorCode implements ErrorResponse {
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "유효하지 않은 토큰입니다.")
     ;
 
     private final HttpStatus httpStatus;
