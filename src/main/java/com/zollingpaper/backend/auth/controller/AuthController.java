@@ -22,6 +22,8 @@ public class AuthController {
             @RequestBody LoginRequest request
     ) {
         LoginResponse response = authService.login(request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok()
+                .header("Authorization", "Bearer " + response.token())
+                .body(response);
     }
 }
