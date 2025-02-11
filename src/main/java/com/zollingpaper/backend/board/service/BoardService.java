@@ -29,14 +29,16 @@ public class BoardService {
     }
 
     public BoardDetailResponse getBoardDetail(String accessAddress) {
-        Board board = boardRepository.findByAccessAddress(accessAddress)
-                .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+        Board board = getBoardByAccessAddress(accessAddress);
 
         return BoardDetailResponse.from(board, board.isPublic(), board.calculateRemainingDays());
     }
 
+    public Board getBoardByAccessAddress(String accessAddress) {
+        return boardRepository.findByAccessAddress(accessAddress).orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+    }
+
     public Board getBoard(Long boardId) {
-        return boardRepository.findById(boardId)
-                .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+        return boardRepository.findById(boardId).orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
     }
 }

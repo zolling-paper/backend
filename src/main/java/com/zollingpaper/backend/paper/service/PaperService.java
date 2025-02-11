@@ -51,8 +51,8 @@ public class PaperService {
         return new PaperDetailResponses(responses);
     }
 
-    public PaperDetailPaginationResponse getPaperDetailPagination(Long boardId, Long cursor, int limit) {
-        Board board = boardService.getBoard(boardId);
+    public PaperDetailPaginationResponse getPaperDetailPagination(String boardId, Long cursor, int limit) {
+        Board board = boardService.getBoardByAccessAddress(boardId);
         Pageable pageable = PageRequest.of(0, limit + 1);
         List<Paper> papers = findPaginatedPapers(board.getId(), cursor, pageable);
 
