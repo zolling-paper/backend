@@ -103,7 +103,7 @@ public class PaperControllerE2ETest {
 
                 dynamicTest("1번 보드에 해당하는 편지를 모두 조회한다.", () -> {
                     RestAssured.given().log().all()
-                            .when().get("/board/1/papers")
+                            .when().get("/board/" + accessAddress + "/papers")
                             .then().log().all()
                             .statusCode(200).body("responses.size()", is(2));
                 })

@@ -1,7 +1,6 @@
 package com.zollingpaper.backend.paper.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import com.zollingpaper.backend.board.domain.Board;
 import com.zollingpaper.backend.board.service.BoardService;
 import com.zollingpaper.backend.paper.domain.Paper;
@@ -43,11 +42,11 @@ public class PaperService {
         return PaperDetailResponse.from(paper);
     }
 
-    public PaperDetailResponses getPaperDetails(Long boardId) {
-        List<Paper> papers = paperRepository.findAllByBoardId(boardId);
+    public PaperDetailResponses getPaperDetails(String boardId) {
+        List<Paper> papers = paperRepository.findAllByBoardAccessAddress(boardId);
         List<PaperDetailResponse> responses = papers.stream()
                 .map(PaperDetailResponse::from)
-                .collect(Collectors.toList()); // TODO: toList()로 변경 필요
+                .toList();
 
         return new PaperDetailResponses(responses);
     }

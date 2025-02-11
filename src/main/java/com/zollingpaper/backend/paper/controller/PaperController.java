@@ -49,7 +49,7 @@ public class PaperController {
     @Operation(summary = "paper 목록 조회 API", description = "특정 board의 paper 목록을 조회합니다.")
     @GetMapping("/board/{board-id}/papers")
     public ResponseEntity<PaperDetailResponses> getPaperDetails(
-            @PathVariable(value = "board-id") Long boardId
+            @PathVariable(value = "board-id") String boardId
     ) {
         PaperDetailResponses responses = paperService.getPaperDetails(boardId);
         return ResponseEntity.ok(responses);
