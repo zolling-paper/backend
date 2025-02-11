@@ -1,7 +1,6 @@
 package com.zollingpaper.backend.paper.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import com.zollingpaper.backend.board.domain.Board;
 import com.zollingpaper.backend.board.service.BoardService;
 import com.zollingpaper.backend.paper.domain.Paper;
@@ -29,7 +28,7 @@ public class PaperService {
     }
 
     public PaperSaveResponse savePaper(PaperSaveRequest request) {
-        Board board = boardService.getBoard(request.boardId());
+        Board board = boardService.getBoardByAccessAddress(request.boardId());
         Paper paper = new Paper(board, request.name(), request.content());
         Paper savedPaper = paperRepository.save(paper);
 
@@ -43,17 +42,17 @@ public class PaperService {
         return PaperDetailResponse.from(paper);
     }
 
-    public PaperDetailResponses getPaperDetails(Long boardId) {
-        List<Paper> papers = paperRepository.findAllByBoardId(boardId);
+    public PaperDetailResponses getPaperDetails(String boardId) {
+        List<Paper> papers = paperRepository.findAllByBoardAccessAddress(boardId);
         List<PaperDetailResponse> responses = papers.stream()
                 .map(PaperDetailResponse::from)
-                .collect(Collectors.toList()); // TODO: toList()로 변경 필요
+                .toList();
 
         return new PaperDetailResponses(responses);
     }
 
-    public PaperDetailPaginationResponse getPaperDetailPagination(Long boardId, Long cursor, int limit) {
-        Board board = boardService.getBoard(boardId);
+    public PaperDetailPaginationResponse getPaperDetailPagination(String boardId, Long cursor, int limit) {
+        Board board = boardService.getBoardByAccessAddress(boardId);
         Pageable pageable = PageRequest.of(0, limit + 1);
         List<Paper> papers = findPaginatedPapers(board.getId(), cursor, pageable);
 
