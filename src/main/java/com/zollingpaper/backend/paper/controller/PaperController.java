@@ -3,7 +3,7 @@ package com.zollingpaper.backend.paper.controller;
 import java.net.URI;
 import com.zollingpaper.backend.paper.dto.PaperDetailPaginationResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
-import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
+import com.zollingpaper.backend.paper.dto.PaperResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.service.PaperService;
@@ -48,10 +48,10 @@ public class PaperController {
 
     @Operation(summary = "paper 목록 조회 API", description = "특정 board의 paper 목록을 조회합니다.")
     @GetMapping("/board/{board-id}/papers")
-    public ResponseEntity<PaperDetailResponses> getPaperDetails(
+    public ResponseEntity<PaperResponses> getPaperDetails(
             @PathVariable(value = "board-id") String boardId
     ) {
-        PaperDetailResponses responses = paperService.getPaperDetails(boardId);
+        PaperResponses responses = paperService.getPapers(boardId);
         return ResponseEntity.ok(responses);
     }
 

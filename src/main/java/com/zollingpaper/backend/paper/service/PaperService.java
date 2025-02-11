@@ -6,7 +6,8 @@ import com.zollingpaper.backend.board.service.BoardService;
 import com.zollingpaper.backend.paper.domain.Paper;
 import com.zollingpaper.backend.paper.dto.PaperDetailPaginationResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
-import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
+import com.zollingpaper.backend.paper.dto.PaperResponses;
+import com.zollingpaper.backend.paper.dto.PaperResponse;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.exception.PaperErrorCode;
@@ -42,13 +43,13 @@ public class PaperService {
         return PaperDetailResponse.from(paper);
     }
 
-    public PaperDetailResponses getPaperDetails(String boardId) {
+    public PaperResponses getPapers(String boardId) {
         List<Paper> papers = paperRepository.findAllByBoardAccessAddress(boardId);
-        List<PaperDetailResponse> responses = papers.stream()
-                .map(PaperDetailResponse::from)
+        List<PaperResponse> responses = papers.stream()
+                .map(PaperResponse::from)
                 .toList();
 
-        return new PaperDetailResponses(responses);
+        return new PaperResponses(responses);
     }
 
     public PaperDetailPaginationResponse getPaperDetailPagination(String boardId, Long cursor, int limit) {
