@@ -35,10 +35,12 @@ public class BoardService {
     }
 
     public Board getBoardByAccessAddress(String accessAddress) {
-        return boardRepository.findByAccessAddress(accessAddress).orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+        return boardRepository.findByAccessAddress(accessAddress)
+                .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
     }
 
     public Board getBoard(Long boardId) {
-        return boardRepository.findById(boardId).orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
+        return boardRepository.findById(boardId)
+                .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
     }
 }
