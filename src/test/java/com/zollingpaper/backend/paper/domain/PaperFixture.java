@@ -7,21 +7,21 @@ public class PaperFixture {
 
     public static final PaperSaveRequest PAPER_SAVE_REQUEST_1
             = new PaperSaveRequest(
-            1L,
+            "test-address",
             "Mason_",
             "hello"
     );
 
     public static final PaperSaveRequest PAPER_SAVE_REQUEST_2
             = new PaperSaveRequest(
-            1L,
+            "test-address",
             "Liv_",
             "hello World"
     );
 
     public static final PaperSaveRequest PAPER_SAVE_REQUEST_3
             = new PaperSaveRequest(
-            2L,
+            "test-address",
             "Todari_",
             "hello World!"
     );

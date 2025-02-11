@@ -28,7 +28,7 @@ public class PaperService {
     }
 
     public PaperSaveResponse savePaper(PaperSaveRequest request) {
-        Board board = boardService.getBoard(request.boardId());
+        Board board = boardService.getBoardByAccessAddress(request.boardId());
         Paper paper = new Paper(board, request.name(), request.content());
         Paper savedPaper = paperRepository.save(paper);
 
