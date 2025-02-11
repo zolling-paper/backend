@@ -4,10 +4,10 @@ import java.util.List;
 import com.zollingpaper.backend.board.domain.Board;
 import com.zollingpaper.backend.board.service.BoardService;
 import com.zollingpaper.backend.paper.domain.Paper;
-import com.zollingpaper.backend.paper.dto.PaperDetailPaginationResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
-import com.zollingpaper.backend.paper.dto.PaperResponses;
+import com.zollingpaper.backend.paper.dto.PaperPaginationResponses;
 import com.zollingpaper.backend.paper.dto.PaperResponse;
+import com.zollingpaper.backend.paper.dto.PaperResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.exception.PaperErrorCode;
@@ -52,7 +52,7 @@ public class PaperService {
         return new PaperResponses(responses);
     }
 
-    public PaperDetailPaginationResponse getPaperDetailPagination(String boardId, Long cursor, int limit) {
+    public PaperPaginationResponses getPapersPagination(String boardId, Long cursor, int limit) {
         Board board = boardService.getBoardByAccessAddress(boardId);
         Pageable pageable = PageRequest.of(0, limit + 1);
         List<Paper> papers = findPaginatedPapers(board.getId(), cursor, pageable);
@@ -62,11 +62,11 @@ public class PaperService {
             papers.remove(papers.size() - 1);
         }
 
-        List<PaperDetailResponse> responses = papers.stream()
-                .map(PaperDetailResponse::from)
+        List<PaperResponse> responses = papers.stream()
+                .map(PaperResponse::from)
                 .toList();
 
-        return new PaperDetailPaginationResponse(responses, hasNext, cursor, getNextCursor(hasNext, papers));
+        return new PaperPaginationResponses(responses, hasNext, cursor, getNextCursor(hasNext, papers));
     }
 
     private List<Paper> findPaginatedPapers(Long boardId, Long cursor, Pageable pageable) {
