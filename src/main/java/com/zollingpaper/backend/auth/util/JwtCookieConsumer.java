@@ -2,9 +2,13 @@ package com.zollingpaper.backend.auth.util;
 
 import com.zollingpaper.backend.auth.exception.AuthErrorCode;
 import com.zollingpaper.backend.auth.exception.AuthException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,9 +17,11 @@ public class JwtCookieConsumer {
     private static final String COOKIE_NAME = "token";
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final String secretKey;
 
-    public JwtCookieConsumer(JwtTokenProvider jwtTokenProvider) {
+    public JwtCookieConsumer(JwtTokenProvider jwtTokenProvider, @Value("${jwt.secret-key}") String secretKey) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.secretKey = secretKey;
     }
 
     public String extractToken(HttpServletRequest request) {
@@ -28,6 +34,21 @@ public class JwtCookieConsumer {
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElseThrow(() -> new AuthException(AuthErrorCode.INVALID_COOKIE));
+    }
+
+    public String extractSubject(HttpServletRequest request) {
+        String token = extractToken(request);
+
+        try {
+            Jws<Claims> jwsClaims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey.getBytes())
+                    .build()
+                    .parseClaimsJws(token);
+
+            return jwsClaims.getBody().getSubject();
+        } catch (Exception e) {
+            throw new AuthException(AuthErrorCode.INVALID_TOKEN);
+        }
     }
 
     public void validateTokenFromCookies(HttpServletRequest request) {

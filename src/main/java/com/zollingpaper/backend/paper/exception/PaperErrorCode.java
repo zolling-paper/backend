@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 public enum PaperErrorCode implements ErrorResponse {
     NOT_FOUND(HttpStatus.NOT_FOUND, "해당 편지가 존재하지 않습니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "해당 편지를 볼 권한이 없습니다."),
     ;
 
     private final HttpStatus httpStatus;
