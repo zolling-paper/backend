@@ -1,9 +1,9 @@
 package com.zollingpaper.backend.paper.controller;
 
 import java.net.URI;
-import com.zollingpaper.backend.paper.dto.PaperDetailPaginationResponse;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
-import com.zollingpaper.backend.paper.dto.PaperDetailResponses;
+import com.zollingpaper.backend.paper.dto.PaperPaginationResponses;
+import com.zollingpaper.backend.paper.dto.PaperResponses;
 import com.zollingpaper.backend.paper.dto.PaperSaveRequest;
 import com.zollingpaper.backend.paper.dto.PaperSaveResponse;
 import com.zollingpaper.backend.paper.service.PaperService;
@@ -48,21 +48,21 @@ public class PaperController {
 
     @Operation(summary = "paper 목록 조회 API", description = "특정 board의 paper 목록을 조회합니다.")
     @GetMapping("/board/{board-id}/papers")
-    public ResponseEntity<PaperDetailResponses> getPaperDetails(
+    public ResponseEntity<PaperResponses> getPaperDetails(
             @PathVariable(value = "board-id") String boardId
     ) {
-        PaperDetailResponses responses = paperService.getPaperDetails(boardId);
+        PaperResponses responses = paperService.getPapers(boardId);
         return ResponseEntity.ok(responses);
     }
 
     @Operation(summary = "paper 목록 조회 페이지네이션 API", description = "특정 board의 paper 목록을 페이지네이션하여 조회합니다.")
     @GetMapping("/board/{board-id}/papers/paging")
-    public ResponseEntity<PaperDetailPaginationResponse> getPaginatedPaperDetails(
+    public ResponseEntity<PaperPaginationResponses> getPaginatedPaperDetails(
             @PathVariable(value = "board-id") String boardId,
             @RequestParam(value = "cursor", required = false) Long cursor,
             @RequestParam(value = "limit", defaultValue = "10") int limit
     ) {
-        PaperDetailPaginationResponse response = paperService.getPaperDetailPagination(boardId, cursor, limit);
+        PaperPaginationResponses response = paperService.getPapersPagination(boardId, cursor, limit);
         return ResponseEntity.ok(response);
     }
 }
