@@ -3,6 +3,8 @@ package com.zollingpaper.backend.auth.controller;
 import com.zollingpaper.backend.auth.service.AuthService;
 import com.zollingpaper.backend.auth.dto.LoginRequest;
 import com.zollingpaper.backend.auth.dto.LoginResponse;
+import com.zollingpaper.backend.auth.util.JwtCookieProvider;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +21,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
-            @RequestBody LoginRequest request
+            @RequestBody LoginRequest request,
+            HttpServletResponse response
     ) {
-        LoginResponse response = authService.login(request);
+        LoginResponse loginResponse = authService.login(request);
+        JwtCookieProvider.setTokenCookie(response, loginResponse.token());
+
         return ResponseEntity.ok()
-                .header("Authorization", "Bearer " + response.token())
-                .body(response);
+                .body(loginResponse);
     }
 }
