@@ -20,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(
+    public ResponseEntity<Void> login(
             @RequestBody LoginRequest request,
             HttpServletResponse response
     ) {
@@ -28,6 +28,6 @@ public class AuthController {
         JwtCookieProvider.setTokenCookie(response, loginResponse.token());
 
         return ResponseEntity.ok()
-                .body(loginResponse);
+                .build();
     }
 }
