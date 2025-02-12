@@ -33,7 +33,7 @@ public class JwtCookieConsumer {
     public void validateTokenFromCookies(HttpServletRequest request) {
         String token = extractToken(request);
         if (token == null || !jwtTokenProvider.validateToken(token)) {
-            throw new RuntimeException("쿠키에 유효한 JWT 토큰이 없습니다.");
+            throw new AuthException(AuthErrorCode.INVALID_COOKIE);
         }
     }
 }
