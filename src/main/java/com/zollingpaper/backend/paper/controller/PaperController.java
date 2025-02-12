@@ -1,7 +1,6 @@
 package com.zollingpaper.backend.paper.controller;
 
-import com.zollingpaper.backend.auth.util.JwtTokenProvider;
-import com.zollingpaper.backend.auth.util.JwtTokenValidator;
+import com.zollingpaper.backend.auth.util.JwtCookieConsumer;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
@@ -25,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaperController {
 
     private final PaperService paperService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtCookieConsumer jwtCookieConsumer;
 
-    public PaperController(PaperService paperService, JwtTokenProvider jwtTokenProvider) {
+    public PaperController(PaperService paperService, JwtCookieConsumer jwtCookieConsumer) {
         this.paperService = paperService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtCookieConsumer = jwtCookieConsumer;
     }
 
     @Operation(summary = "paper 생성 API", description = "특정 board에 새로운 paper를 생성합니다.")
@@ -48,7 +47,7 @@ public class PaperController {
             @PathVariable(value = "paper-id") Long paperId,
             HttpServletRequest request
     ) {
-        JwtTokenValidator.checkToken(request, jwtTokenProvider);
+        jwtCookieConsumer.validateJwtFromCookies(request);
         PaperDetailResponse response = paperService.getPaperDetail(paperId);
         return ResponseEntity.ok(response);
     }
