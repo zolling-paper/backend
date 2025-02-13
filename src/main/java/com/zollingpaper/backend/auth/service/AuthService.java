@@ -32,4 +32,8 @@ public class AuthService {
 
         return new LoginResponse(jwtTokenProvider.createToken(board));
     }
+
+    public boolean isBoardExistByAccessAddress(String accessAddress) {
+        return boardRepository.existsBoardByAccessAddress(accessAddress);
+    }
 }
