@@ -26,8 +26,9 @@ public class AccessorArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(Authenticated.class) &&
-                parameter.getParameterType().equals(Accessor.class);
+        boolean hasAuthAnnotation = parameter.hasParameterAnnotation(Authenticated.class);
+        boolean isAccessorClass = Accessor.class.isAssignableFrom(parameter.getParameterType());
+        return hasAuthAnnotation && isAccessorClass;
     }
 
     @Override
