@@ -1,5 +1,7 @@
 package com.zollingpaper.backend.paper.controller;
 
+import com.zollingpaper.backend.auth.config.Authenticated;
+import com.zollingpaper.backend.auth.dto.Accessor;
 import java.net.URI;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperPaginationResponses;
@@ -40,9 +42,10 @@ public class PaperController {
     @Operation(summary = "paper 조회 API", description = "특정 paper 하나를 조회합니다.")
     @GetMapping("/paper/{paper-id}")
     public ResponseEntity<PaperDetailResponse> getPaperDetail(
-            @PathVariable(value = "paper-id") Long paperId
-    ) {
-        PaperDetailResponse response = paperService.getPaperDetail(paperId);
+            @PathVariable(value = "paper-id") Long paperId,
+            @Authenticated Accessor accessor
+            ) {
+        PaperDetailResponse response = paperService.getPaperDetail(paperId, accessor.accessAddress());
         return ResponseEntity.ok(response);
     }
 

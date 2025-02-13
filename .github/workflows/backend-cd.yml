@@ -9,6 +9,9 @@ jobs:
   Build:
     name: 🏗️ Build Jar and Upload Docker Image
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      EXPIRE_TIME: ${{ secrets.EXPIRE_TIME }}
 
     steps:
       - name: Checkout

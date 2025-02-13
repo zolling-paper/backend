@@ -36,9 +36,13 @@ public class PaperService {
         return PaperSaveResponse.from(savedPaper);
     }
 
-    public PaperDetailResponse getPaperDetail(Long paperId) {
+    public PaperDetailResponse getPaperDetail(Long paperId, String boardAddress) {
         Paper paper = paperRepository.findById(paperId)
                 .orElseThrow(() -> new PaperException(PaperErrorCode.NOT_FOUND));
+
+        if (!boardAddress.equals(paper.getBoard().getAccessAddress())) {
+            throw new PaperException(PaperErrorCode.UNAUTHORIZED);
+        }
 
         return PaperDetailResponse.from(paper);
     }
