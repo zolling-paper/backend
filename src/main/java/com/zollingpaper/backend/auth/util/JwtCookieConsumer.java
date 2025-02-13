@@ -39,7 +39,6 @@ public class JwtCookieConsumer {
 
             return jwsClaims.getBody().getSubject();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new AuthException(AuthErrorCode.INVALID_TOKEN);
         }
     }
