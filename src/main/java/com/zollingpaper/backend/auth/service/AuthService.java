@@ -1,7 +1,7 @@
 package com.zollingpaper.backend.auth.service;
 
 import com.zollingpaper.backend.auth.dto.LoginRequest;
-import com.zollingpaper.backend.auth.dto.LoginResponse;
+import com.zollingpaper.backend.auth.dto.TokenDto;
 import com.zollingpaper.backend.auth.exception.AuthErrorCode;
 import com.zollingpaper.backend.auth.exception.AuthException;
 import com.zollingpaper.backend.auth.util.JwtTokenProvider;
@@ -22,7 +22,7 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public LoginResponse login(LoginRequest request) {
+    public TokenDto login(LoginRequest request) {
         Board board = boardRepository.findByAccessAddress(request.id())
                 .orElseThrow(() -> new BoardException(BoardErrorCode.NOT_FOUND));
 
@@ -30,7 +30,7 @@ public class AuthService {
             throw new AuthException(AuthErrorCode.INVALID_PASSWORD);
         }
 
-        return new LoginResponse(jwtTokenProvider.createToken(board));
+        return new TokenDto(jwtTokenProvider.createToken(board));
     }
 
     public boolean isBoardExistByAccessAddress(String accessAddress) {

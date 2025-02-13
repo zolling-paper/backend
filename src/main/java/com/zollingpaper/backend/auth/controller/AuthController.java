@@ -2,7 +2,7 @@ package com.zollingpaper.backend.auth.controller;
 
 import com.zollingpaper.backend.auth.service.AuthService;
 import com.zollingpaper.backend.auth.dto.LoginRequest;
-import com.zollingpaper.backend.auth.dto.LoginResponse;
+import com.zollingpaper.backend.auth.dto.TokenDto;
 import com.zollingpaper.backend.auth.util.JwtCookieProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,8 +28,8 @@ public class AuthController {
             @RequestBody LoginRequest request,
             HttpServletResponse response
     ) {
-        LoginResponse loginResponse = authService.login(request);
-        JwtCookieProvider.setTokenCookie(response, loginResponse.token());
+        TokenDto tokenDto = authService.login(request);
+        JwtCookieProvider.setTokenCookie(response, tokenDto.token());
 
         return ResponseEntity.ok()
                 .build();
