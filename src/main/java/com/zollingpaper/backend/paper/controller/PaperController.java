@@ -1,7 +1,7 @@
 package com.zollingpaper.backend.paper.controller;
 
-import com.zollingpaper.backend.auth.util.JwtCookieConsumer;
-import jakarta.servlet.http.HttpServletRequest;
+import com.zollingpaper.backend.auth.config.Authenticated;
+import com.zollingpaper.backend.auth.dto.Accessor;
 import java.net.URI;
 import com.zollingpaper.backend.paper.dto.PaperDetailResponse;
 import com.zollingpaper.backend.paper.dto.PaperPaginationResponses;
@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaperController {
 
     private final PaperService paperService;
-    private final JwtCookieConsumer jwtCookieConsumer;
 
-    public PaperController(PaperService paperService, JwtCookieConsumer jwtCookieConsumer) {
+    public PaperController(PaperService paperService) {
         this.paperService = paperService;
-        this.jwtCookieConsumer = jwtCookieConsumer;
     }
 
     @Operation(summary = "paper 생성 API", description = "특정 board에 새로운 paper를 생성합니다.")
@@ -45,10 +43,9 @@ public class PaperController {
     @GetMapping("/paper/{paper-id}")
     public ResponseEntity<PaperDetailResponse> getPaperDetail(
             @PathVariable(value = "paper-id") Long paperId,
-            HttpServletRequest request
-    ) {
-        String authorizedBoardAddress = jwtCookieConsumer.extractSubject(request);
-        PaperDetailResponse response = paperService.getPaperDetail(paperId, authorizedBoardAddress);
+            @Authenticated Accessor accessor
+            ) {
+        PaperDetailResponse response = paperService.getPaperDetail(paperId, accessor.accessAddress());
         return ResponseEntity.ok(response);
     }
 

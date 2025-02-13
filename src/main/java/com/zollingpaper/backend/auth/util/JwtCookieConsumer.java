@@ -27,20 +27,9 @@ public class JwtCookieConsumer {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
-    public String extractToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            throw new AuthException(AuthErrorCode.COOKIE_NOT_EXIST);
-        }
-        return Arrays.stream(cookies)
-                .filter(cookie -> cookie.getName().equals(COOKIE_NAME))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElseThrow(() -> new AuthException(AuthErrorCode.INVALID_COOKIE));
-    }
-
     public String extractSubject(HttpServletRequest request) {
         String token = extractToken(request);
+        validateTokenFromCookies(token);
 
         try {
             Jws<Claims> jwsClaims = Jwts.parserBuilder()
@@ -55,8 +44,19 @@ public class JwtCookieConsumer {
         }
     }
 
-    public void validateTokenFromCookies(HttpServletRequest request) {
-        String token = extractToken(request);
+    private String extractToken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            throw new AuthException(AuthErrorCode.COOKIE_NOT_EXIST);
+        }
+        return Arrays.stream(cookies)
+                .filter(cookie -> cookie.getName().equals(COOKIE_NAME))
+                .findFirst()
+                .map(Cookie::getValue)
+                .orElseThrow(() -> new AuthException(AuthErrorCode.INVALID_COOKIE));
+    }
+
+    private void validateTokenFromCookies(String token) {
         if (token == null || !jwtTokenProvider.validateToken(token)) {
             throw new AuthException(AuthErrorCode.INVALID_COOKIE);
         }
