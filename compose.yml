@@ -1,0 +1,11 @@
+services:
+  application:
+    image: ${BACKEND_APP_IMAGE_NAME}
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: "Asia/Seoul"
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_EXPIRE_TIME: ${JWT_EXPIRE_TIME}
+    restart: always
+    container_name: zolling-backend
