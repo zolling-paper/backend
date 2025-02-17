@@ -2,6 +2,8 @@ name: Backend CI Workflow
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [ "main", "dev" ]
   push:
     branches: [ "main", "dev" ]
 
@@ -10,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-      EXPIRE_TIME: ${{ secrets.EXPIRE_TIME }}
+      JWT_EXPIRE_TIME: ${{ secrets.EXPIRE_TIME }}
     permissions:
       contents: read
 
