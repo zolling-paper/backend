@@ -23,4 +23,4 @@ spring:
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}
-  expire-time: ${EXPIRE_TIME}
+  expire-time: ${JWT_EXPIRE_TIME}
